@@ -17,6 +17,19 @@ class UsersController < ApplicationController
 		render json: @user
 	end
 
+	def add_friend
+		@friend = Friend.new
+
+		@friend.user_one = params[:user_id]
+		@friend.user_two = params[:id]
+
+		if @friend.save!
+			render json: {}, status: 200
+		else
+			render json: {}, status: 400
+		end
+	end
+
 	private
 		def user_params
 			params.permit(:oauth_id)

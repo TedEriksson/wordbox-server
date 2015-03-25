@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :users, format: 'json'
+  resources :users, format: 'json' do
+    post 'add_friend/:id', action: 'add_friend'
+  end
   resources :sentences, format: 'json'
   resources :words, format: 'json'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
