@@ -1,6 +1,6 @@
 class SentencesController < ApplicationController
 	skip_before_action :verify_authenticity_token
-	
+	before_action :authenticate_user!
 	def create
 		@sentence = Sentence.new
 
