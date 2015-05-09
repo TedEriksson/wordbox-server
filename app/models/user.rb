@@ -27,8 +27,14 @@ class User < ActiveRecord::Base
 		super(options)
 	end
 
+	def friend_requests
+		@friends = Friend.where("user_two = ?", self).where(pending: true)
+
+		return @friends
+	end
+
 	def friends
-		@friends = Friend.where("user_one = ? OR user_two = ?", self, self)
+		@friends = Friend.where("user_one = ? OR user_two = ?", self, self).where(pending: false)
 
 		@users = Array.new
 

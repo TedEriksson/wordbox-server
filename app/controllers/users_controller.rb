@@ -21,8 +21,15 @@ class UsersController < ApplicationController
 	def add_friend
 		@friend = Friend.new
 
+		friend_to_add = User.find_by username: params[:username]
+
+		if not friend_to_add
+			render json: {}, status: 404
+			return
+		end
+
 		@friend.user_one = params[:user_id]
-		@friend.user_two = params[:id]
+		@friend.user_two = friend_to_add.id
 
 		if @friend.save!
 			render json: {}, status: 200
@@ -31,8 +38,18 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def friend_requests
+		# if not current_user == params[:user_id]
+		# 	render json: {}, status: 404
+		# 	return
+		# end
+		@user = User.find params[:user_id]
+
+		render json: @user.friend_requests, status: 200
+	end
+
 	private
 		def user_params
-			params.permit(:oauth_id, :username)
+			params.permit(:username)
 		end
 end

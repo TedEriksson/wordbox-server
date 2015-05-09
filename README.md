@@ -69,6 +69,7 @@ client: KaCdCDUXTGYmVKoX2RX-6Q
 expiry: 1432387616
 ```
 ##__API calls below this point require auth__
+
 ## Show user
 ```
 GET /users/:id
@@ -86,6 +87,46 @@ GET /users/:id
     "friends": [ ]
 }
 ```
+
+## Send Friend Request
+```
+POST /users/:user_id/add_friend/:username
+{}
+{}
+```
+
+## Check Friend Requests
+```
+GET /users/:user_id/friend_requests
+{}
+
+[
+    {
+        "id": 6,
+        "created_at": "2015-05-09T16:38:57.726Z",
+        "updated_at": "2015-05-09T17:34:15.336Z",
+        "user_one": 10,
+        "user_two": 11,
+        "pending": true
+    }
+]
+```
+
+## Update friend request
+```
+PUT /friends/:id
+{
+    "pending": false
+}
+
+{}
+```
+### Possible Pending states
+* true: request is shown in get requests
+* false: request is accepted. Users are now friends
+* null: request is rejected. User must now deal with crippling anxiety knowing someone out there does not like them enough to be friends with them on wordbox
+ 
+
 ## Errors
 Errors are returned in this format
 ```
