@@ -4,7 +4,11 @@ class SentencesController < ApplicationController
 	def create
 		@sentence = Sentence.new
 
-		@sentence.user_id = params[:user_id]
+		if params[:user_id]
+			@sentence.user_id = params[:user_id]
+		else
+			@sentence.user_id = current_user.id
+		end
 
 		if @sentence.save!
 			words = params["words"]
