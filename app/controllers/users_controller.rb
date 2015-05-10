@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		if (params[:id] == 'me') {
+			render json: current_user
+			return			
+		}
+
 		@user = User.find params[:id]
 
 		render json: @user
