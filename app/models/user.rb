@@ -20,6 +20,13 @@ class User < ActiveRecord::Base
 
 	has_many :sentences
 
+	def as_json(options={})
+		options.merge!(
+			methods: [:sentences, :friends]
+		)
+		super(options)
+	end
+
 	def to_json(options={})
 		options.merge!(
 			methods: [:sentences, :friends]
