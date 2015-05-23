@@ -46,11 +46,14 @@ class User < ActiveRecord::Base
 		@users = Array.new
 
 		@friends.each do |friend|
+			user = nil
 			if friend.user_one == self.id
-				@users.push(User.find(friend.user_two).id)
+				user = User.find(friend.user_two)
 			else
-				@users.push(User.find(friend.user_one).id)
+				user = User.find(friend.user_one)
 			end	
+
+			@users.push({id: user.id, username: user.username})
 		end
 
 		return @users
