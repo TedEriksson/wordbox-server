@@ -53,6 +53,6 @@ class User < ActiveRecord::Base
 			end	
 		end
 
-		return @users
+		return @users.except(:friends)
 	end
 end
