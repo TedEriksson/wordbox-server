@@ -47,9 +47,9 @@ class User < ActiveRecord::Base
 
 		@friends.each do |friend|
 			if friend.user_one == self.id
-				@users.push(User.find(friend.user_two).except(:friends))
+				@users.push(User.find(friend.user_two).id)
 			else
-				@users.push(User.find(friend.user_one).except(:friends))
+				@users.push(User.find(friend.user_one).id)
 			end	
 		end
 
