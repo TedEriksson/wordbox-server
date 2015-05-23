@@ -47,12 +47,12 @@ class User < ActiveRecord::Base
 
 		@friends.each do |friend|
 			if friend.user_one == self.id
-				@users.push(User.find(friend.user_two))
+				@users.push(User.find(friend.user_two).except(:friends))
 			else
-				@users.push(User.find(friend.user_one))
+				@users.push(User.find(friend.user_one).except(:friends))
 			end	
 		end
 
-		return @users.except(:friends)
+		return @users
 	end
 end
